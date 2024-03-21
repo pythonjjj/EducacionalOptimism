@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Imagens e NFTs</title>
+    <style>
+        /* Estilos CSS simples */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #image-preview {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload de Imagens e NFTs</h2>
+        <input type="file" id="image-upload" multiple accept="image/*">
+        <button onclick="uploadImages()">Enviar Imagens</button>
+        <ul id="nft-links"></ul>
+    </div>
+
+    <script>
+        async function uploadImages() {
+            const files = document.getElementById('image-upload').files;
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                const nftLinks = document.getElementById('nft-links');
+                nftLinks.innerHTML = '';
+                data.forEach(link => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = link;
+                    nftLinks.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Erro ao enviar imagens:', error);
+            }
+        }
+    </script>
+</body>
+</html>

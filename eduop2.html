@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização dos NFTs</title>
+    <style>
+        /* Estilos CSS simples */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .timeline {
+            list-style: none;
+            padding: 0;
+        }
+        .timeline li {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+        .timeline li:last-child {
+            border-bottom: none;
+        }
+        .nft-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Visualização dos NFTs</h2>
+        <ul class="timeline" id="nft-timeline"></ul>
+    </div>
+
+    <script>
+        async function loadNFTs() {
+            try {
+                const response = await fetch('/nfts');
+                const data = await response.json();
+                const nftTimeline = document.getElementById('nft-timeline');
+                nftTimeline.innerHTML = '';
+                data.forEach(nft => {
+                    const listItem = document.createElement('li');
+                    const image = document.createElement('img');
+                    image.src = nft.imageHash;
+                    image.classList.add('nft-image');
+                    listItem.appendChild(image);
+                    nftTimeline.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar NFTs:', error);
+            }
+        }
+
+        loadNFTs();
+    </script>
+</body>
+</html>
