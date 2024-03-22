@@ -58,3 +58,28 @@ This tokenURI should resolve to a JSON document that might look something like:
     "image": "https://aulas.example/item-id-xyz.png",
     "strength": 20
 }
+
+
+
+
+//Importações:
+
+O contrato importa as bibliotecas necessárias ERC721 e Counters do OpenZeppelin.
+Declaração do Contrato:
+
+O contrato aulasItem é declarado e herda da biblioteca ERC721.
+Inicialização do Counter:
+
+Um contador é inicializado para rastrear o ID dos tokens.
+Construtor:
+
+O construtor do contrato é chamado para definir os metadados do ERC721, incluindo o nome ("aulasItem") e o símbolo ("AIT").
+Função awardItem:
+
+Esta função permite que o criador de aulas minta novos tokens representando as lições. Ele recebe o endereço do criador e o URI do token como parâmetros, incrementa o contador de IDs dos tokens, cria um novo token com o ID incrementado, atribui o token ao criador e define o URI do token.
+Exemplo de Uso:
+
+Um exemplo de uso é fornecido para criar uma nova aula usando a função awardItem. Ele demonstra como criar uma nova aula, especificando o endereço do criador e o URI do token.
+Exemplo de Metadata:
+
+Um exemplo de como a metadata do token pode ser estruturada é fornecido. Ele mostra um JSON com campos como nome, descrição, imagem e força.
